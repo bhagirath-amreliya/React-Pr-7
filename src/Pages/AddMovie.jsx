@@ -1,13 +1,12 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import MovieForm from "../Components/MovieForm";
 
-function AddMovie() {
-  let navigate = useNavigate();
+const AddMovie = ({ addMovie }) => {
+  const navigate = useNavigate();
 
-  let handleAdd = (movie) => {
-    let stored = JSON.parse(localStorage.getItem("movies")) || [];
-    stored.push(movie);
-    localStorage.setItem("movies", JSON.stringify(stored));
+  const handleAdd = (movie) => {
+    addMovie(movie);
     navigate("/");
   };
 
@@ -17,6 +16,6 @@ function AddMovie() {
       <MovieForm onSubmit={handleAdd} />
     </div>
   );
-}
+};
 
 export default AddMovie;

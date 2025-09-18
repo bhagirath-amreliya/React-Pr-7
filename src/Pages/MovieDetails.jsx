@@ -1,28 +1,28 @@
-import { useParams, Link } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-function MovieDetails() {
-  let { id } = useParams();
-  let [movie, setMovie] = useState(null);
+const MovieDetails = ({ movies }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    let stored = JSON.parse(localStorage.getItem("movies")) || [];
-    setMovie(stored[id]);
-  }, [id]);
+  const movie = movies.find((m) => m.id === parseInt(id));
 
   if (!movie) return <p>Movie not found</p>;
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text><strong>Director:</strong> {movie.director}</Card.Text>
-        <Card.Text><strong>Rating:</strong> {movie.rating}</Card.Text>
-        <Button as={Link} to="/" variant="info">Back</Button>
-      </Card.Body>
-    </Card>
+    <div className="movie-details">
+      {movie.poster && (
+        <img src={movie.poster} alt={movie.title} className="poster-large" />
+      )}
+      <h2>{movie.title}</h2>
+      <p><strong>Description:</strong> {movie.description}</p>
+      <p><strong>Director:</strong> {movie.director}</p>
+      <p><strong>Genre:</strong> {movie.genre}</p>
+      <p><strong>Movie Time:</strong> {movie.movieTime}</p>
+      <p><strong>⭐ Rating:</strong> {movie.rating}/10</p>
+      <button onClick={() => navigate("/")}>⬅ Back</button>
+    </div>
   );
-}
+};
 
 export default MovieDetails;

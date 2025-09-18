@@ -1,160 +1,156 @@
 body {
-  background: linear-gradient(135deg, #000000, #89c2cb);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
+  font-family: Arial, sans-serif;
+  background: #480c21;
   margin: 0;
-  padding: 0;
-  height: 100vh;
+  padding: 20px;
 }
 
-/* Navbar */
-.navbar {
-  background: #111;
-  padding: 1rem 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
-.navbar-brand {
-  color: #368595 !important;
-  font-weight: 700;
-  font-size: 50px;
-}
-
-.nav-link {
-  color: #abb4b4 !important;
-  margin: 0 10px;
-  transition: 0.3s;
-}
-
-.nav-link:hover {
-  color: #ccc8c9 !important;
-  font-weight:600;
-  font-size: larger;
-}
-
-/* Container */
 .container {
-  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+  background: rgb(189, 149, 165);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Movie List Cards */
+.app-title {
+  text-align: center;
+  color: #333;
+}
+
 .movie-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .movie-card {
-  background: #1e272e;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-
-.movie-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-}
-
-.movie-poster {
-  height: 180px;
-  background: #2f3640;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  color: #888;
-}
-
-.movie-card-body {
+  border: 1px solid #ddd;
   padding: 15px;
-}
-
-.movie-title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #fff;
-}
-
-.movie-director {
-  font-size: 0.9rem;
-  color: #bbb;
-}
-
-.movie-rating {
-  margin-top: 10px;
-  color: gold;
-  font-weight: bold;
-}
-
-/* Action Buttons */
-.btn-custom {
-  display: inline-block;
-  margin: 5px 3px;
-  padding: 8px 16px;
   border-radius: 6px;
-  font-size: 0.85rem;
+  background: #fafafa;
+}
+
+.movie-card h2 {
+  margin: 0 0 5px;
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+.actions button {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  text-decoration: none;
-  transition: 0.3s;
 }
 
-.btn-view {
-  background: #1abc9c;
+.btn-add {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 8px 12px;
+  background: #007bff;
   color: white;
-}
-.btn-view:hover {
-  background: #16a085;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
 }
 
-.btn-edit {
-  background: #f39c12;
-  color: white;
-}
-.btn-edit:hover {
-  background: #d35400;
+.btn-add:hover {
+  background: #0056b3;
 }
 
 .btn-delete {
-  background: #e74c3c;
+  background: #dc3545;
   color: white;
 }
-.btn-delete:hover {
-  background: #c0392b;
+
+.movie-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Movie Detail Page */
-.movie-detail-card {
-  background: #1e272e;
-  border-radius: 12px;
-  padding: 20px;
+.movie-form input,
+.movie-form textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.movie-form button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.movie-form button:hover {
+  background: #218838;
+}
+.movie-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 6px;
+  background: #fafafa;
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: flex-start;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
 }
 
-.movie-detail-poster {
+.poster {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.poster-large {
   width: 200px;
-  height: 280px;
-  background: #2f3640;
-  border-radius: 10px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.movie-details {
+  text-align: center;
+}
+
+.movie-form {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.movie-form input,
+.movie-form textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.top-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
   align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  color: #888;
 }
 
-.movie-detail-info h2 {
-  margin: 0;
-  font-size: 2rem;
-  color: #fff;
+.top-bar input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-.movie-detail-info p {
-  font-size: 1.1rem;
-  margin: 10px 0;
-  color: #ddd;
+.top-bar select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }

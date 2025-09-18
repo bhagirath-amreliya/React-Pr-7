@@ -1,54 +1,61 @@
-import { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Movie from "../Components/Movie";
 
-function Home() {
-  let [movies, setMovies] = useState([]);
+const Home = ({ movies, deleteMovie }) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    let stored = JSON.parse(localStorage.getItem("movies")) || [];
-    setMovies(stored);
-  }, []);
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
-  let deleteMovie = (id) => {
-    let updated = movies.filter((m, i) => i !== id);
-    setMovies(updated);
-    localStorage.setItem("movies", JSON.stringify(updated));
-  };
+  // filter + search
+  const filteredMovies = movies
+    .filter(
+      (m) =>
+        m.title.toLowerCase().includes(search.toLowerCase()) ||
+        m.director.toLowerCase().includes(search.toLowerCase()) ||
+        m.genre.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortBy === "title") return a.title.localeCompare(b.title);
+      if (sortBy === "rating") return b.rating - a.rating; // highest rating first
+      if (sortBy === "time") return a.movieTime.localeCompare(b.movieTime);
+      return 0;
+    });
 
   return (
     <div>
-      <h2>Movie List</h2>
-      {movies.length === 0 ? (
-        <p>No movies added yet.</p>
-      ) : (
-        <Table striped bordered hover>
-          <thead>
-            <tr style={{textAlign: "center"}}>
-              <th>Title</th>
-              <th>Director</th>
-              <th>Rating</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {movies.map((m, i) => (
-              <tr key={i}>
-                <td>{m.title}</td>
-                <td>{m.director}</td>
-                <td>{m.rating}</td>
-                <td style={{textAlign: "center"}}>
-                  <Button as={Link} to={`/movie/${i}`} variant="btn btn-outline-info" size="sm" className="me-2">View</Button>
-                  <Button as={Link} to={`/edit/${i}`} variant="btn btn-outline-warning" size="sm" className="me-2">Edit</Button>
-                  <Button onClick={() => deleteMovie(i)} variant="btn btn-outline-danger" size="sm">Delete</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>  
-      )}
+      <div className="top-bar">
+        <button className="btn-add" onClick={() => navigate("/add")}>
+          ➕ Add Movie
+        </button>
+
+        <input
+          type="text"
+          placeholder="Search by title, director, genre..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="">Sort By</option>
+          <option value="title">Title (A-Z)</option>
+          <option value="rating">Rating (High → Low)</option>
+          <option value="time">Movie Time</option>
+        </select>
+      </div>
+
+      <div className="movie-list">
+        {filteredMovies.length === 0 ? (
+          <p>No movies found.</p>
+        ) : (
+          filteredMovies.map((movie) => (
+            <Movie key={movie.id} movie={movie} deleteMovie={deleteMovie} />
+          ))
+        )}
+      </div>
     </div>
   );
-}
+};
 
 export default Home;

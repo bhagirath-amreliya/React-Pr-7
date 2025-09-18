@@ -1,72 +1,91 @@
-import { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 
-function MovieForm({ onSubmit, initialData }) {
-  let [movie, setMovie] = useState({
+const MovieForm = ({ onSubmit, initialData }) => {
+  const [form, setForm] = useState({
     title: "",
+    description: "",
     director: "",
-    rating: ""
+    genre: "",
+    movieTime: "",
+    rating: "",
+    poster: "",
   });
 
   useEffect(() => {
-    if (initialData) setMovie(initialData);
+    if (initialData) setForm(initialData);
   }, [initialData]);
 
-  let handleChange = (e) => {
-    let { name, value } = e.target;
-    setMovie({ ...movie, [name]: value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  let handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (movie.rating > 10) {
-      alert("Rating should not be more than 10!");
-      return;
-    }
-    onSubmit(movie);
-    setMovie({ title: "", director: "", rating: "" });
+    onSubmit(form);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-2">
-        <Form.Label>Title</Form.Label>
-        <Form.Control
-          type="text"
-          name="title"
-          value={movie.title}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-2">
-        <Form.Label>Director</Form.Label>
-        <Form.Control
-          type="text"
-          name="director"
-          value={movie.director}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-2">
-        <Form.Label>Rating (Max 10)</Form.Label>
-        <Form.Control
-          type="number"
-          name="rating"
-          value={movie.rating}
-          onChange={handleChange}
-          min="0"
-          max="10"
-          required
-        />
-      </Form.Group>
-
-      <Button type="submit" variant="primary">Save</Button>
-    </Form>
+    <form className="movie-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="title"
+        placeholder="Movie Title"
+        value={form.title}
+        onChange={handleChange}
+        required
+      />
+      <textarea
+        name="description"
+        placeholder="Movie Description"
+        value={form.description}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="text"
+        name="director"
+        placeholder="Director"
+        value={form.director}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="text"
+        name="genre"
+        placeholder="Genre"
+        value={form.genre}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="text"
+        name="movieTime"
+        placeholder="Movie Time (e.g. 2h 15m)"
+        value={form.movieTime}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="number"
+        name="rating"
+        placeholder="Rating (1-10)"
+        min="1"
+        max="10"
+        value={form.rating}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="url"
+        name="poster"
+        placeholder="Poster Image URL"
+        value={form.poster}
+        onChange={handleChange}
+        required
+      />
+      <button type="submit"> Save</button>
+    </form>
   );
-}
+};
 
 export default MovieForm;
